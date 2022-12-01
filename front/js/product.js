@@ -70,32 +70,6 @@ if (button != null) {
             quantity: Number(quantity),
         }
         localStorage.setItem(id, JSON.stringify(data))
+        window.location.href = "cart.html"
     })
 }
-  
-
-
-
-//Ecouter le clic sur le bouton #addToCart
-//const ajouterAuPanier = (event) => {
-    //const selectedColor = document.getElementById('colors').value
-    //const selectedQuantity = document.getElementById('quantity').value
-
-    //const cartItem = {
-   //     id: "",
-    //    color: selectedColor,
-   //     qty: selectedQuantity,
-    //}
-
-    //const cartStorage = localStorage.getItem('cart') ?? "[]"
-    //const cartItems = JSON.parse(cartStorage)
-
-    //cartItems.push(cartItem);
-
-    //localStorage.setItem('cart', JSON.stringify(cartItems));
-
-//}
-
-//const addToCartButton = document.getElementById('addToCart')
-
-//addToCartButton.addEventListener('click', ajouterAuPanier);
