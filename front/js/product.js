@@ -55,4 +55,47 @@ function makeColors(colors) {
         })
     }
 }
-   
+
+const button = document.querySelector("#addToCart")
+if (button != null) {
+    button.addEventListener("click", (e) => {
+        const color = document.querySelector("#colors").value
+        const quantity = document.querySelector("#quantity").value
+        if (color == null || color === "" || quantity == null || quantity == 0) {
+            alert("Please select a color and quantity")
+        }
+        const data = {
+            id: id,
+            color: color,
+            quantity: Number(quantity),
+        }
+        localStorage.setItem(id, JSON.stringify(data))
+    })
+}
+  
+
+
+
+//Ecouter le clic sur le bouton #addToCart
+//const ajouterAuPanier = (event) => {
+    //const selectedColor = document.getElementById('colors').value
+    //const selectedQuantity = document.getElementById('quantity').value
+
+    //const cartItem = {
+   //     id: "",
+    //    color: selectedColor,
+   //     qty: selectedQuantity,
+    //}
+
+    //const cartStorage = localStorage.getItem('cart') ?? "[]"
+    //const cartItems = JSON.parse(cartStorage)
+
+    //cartItems.push(cartItem);
+
+    //localStorage.setItem('cart', JSON.stringify(cartItems));
+
+//}
+
+//const addToCartButton = document.getElementById('addToCart')
+
+//addToCartButton.addEventListener('click', ajouterAuPanier);
