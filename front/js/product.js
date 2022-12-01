@@ -19,25 +19,28 @@ function handleData(canape) {
 
 function makeImage(imageUrl, altTxt) {
     const image = document.createElement("img")
-    image.src = imageUrl
-    image.alt = altTxt
+    image.setAttribute('src', imageUrl)
+    image.setAttribute( 'alt', altTxt)
     const parent = document.querySelector(".item__img")
     if (parent !=null) parent.appendChild(image)
 
 }
 function makeTitle(name) {
     const h1 = document.querySelector("#title")
-    if (h1 !=null) h1.textContent = name
+    if (h1 !=null) 
+    h1.innerText = name
 }
 
 function makePrice(price) {
     const span = document.querySelector("#price")
-    if (span !=null) span.textContent = price
+    if (span !=null) 
+    span.innerText = price
 }
 
 function makeDescription(description){
     const p = document.querySelector("#description")
-    if (p !=null) p.textContent = description
+    if (p !=null) 
+    p.innerText = description
 }
 
 function makeColors(colors) {
@@ -46,7 +49,7 @@ function makeColors(colors) {
         colors.forEach((color) => {
             const option = document.createElement("option")
             option.value = color
-            option.textContent = color
+            option.innerText = color
             select.appendChild(option)
 
         })
