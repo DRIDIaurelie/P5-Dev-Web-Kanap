@@ -15,13 +15,17 @@ function retrieveItemsFromCache() {
 function displayItem(item) {
     const article = makeArticle(item)
     const imageDiv = makeImageDiv(item)
-    article.appendChild(imageDiv)
-    
+    article.appendChild(imageDiv)    
     const cardItemContent = makeCartContent(item)
     article.appendChild(cardItemContent)
-
     displayArticle(article)
+    displayTotalQuantity(item)
 }
+function displayTotalQuantity(item) {
+    const totalQuantity = document.querySelector("#totalQuantity")
+    totalQuantity.textContent = item.quantity
+}   
+
 
 function makeCartContent(item) {
     const cardItemContent = document.createElement("div")
@@ -40,8 +44,19 @@ function makeSettings(item){
     settings.classList.add("cart__item__content__settings")
 
     addQuantityToSettings(settings, item)
+    addDeleteToSettings(settings)
     return settings
 }
+function addDeleteToSettings(settings){
+    const div = document.createElement("div")
+    div.classList.add("cart__item__content__settings__delete")
+    const p = document.createElement("p")
+    p.textContent = "supprimer"
+    div.appendChild(p)
+    settings.appendChild(div)
+
+}
+
 function addQuantityToSettings(settings, item){
     const quantity = document.createElement("div")
     quantity.classList.add("cart__item__content__settings__quantity")
@@ -55,7 +70,8 @@ function addQuantityToSettings(settings, item){
     input.min = "1"
     input.max = "100"
     input.value = item.quantity
-    settings.appendChild(input)
+    quantity.appendChild(input)
+    settings.appendChild(quantity)
 
 
 }
