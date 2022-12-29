@@ -1,7 +1,7 @@
 const queryString = window.location.search
 const urlParams = new URLSearchParams(queryString)
 const id = urlParams.get("id")
-if (id !=null){
+if (id !=null) {
     let itemPrice = 0
     let imgUrl, altText, articleName
 }
@@ -28,7 +28,7 @@ function handleData(canape) {
 function makeImage(imageUrl, altTxt) {
     const image = document.createElement("img")
     image.setAttribute('src', imageUrl)
-    image.setAttribute( 'alt', altTxt)
+    image.setAttribute('alt', altTxt)
     const parent = document.querySelector(".item__img")
     if (parent !=null) parent.appendChild(image)
 
