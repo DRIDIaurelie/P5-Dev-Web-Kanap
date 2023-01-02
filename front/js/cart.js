@@ -15,9 +15,9 @@ function displayItem(cartItem, product) {
     const cardItemContent = makeCartContent(cartItem, product)
     article.appendChild(cardItemContent)
     displayArticle(article)
-    displayTotalPrice(item)
+    displayTotalPrice()
 }
-function displayTotalPrice(item) {
+function displayTotalPrice() {
     let total = 0
     const totalPrice = document.querySelector("#totalPrice")
     cart.forEach((item) => {

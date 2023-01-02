@@ -70,7 +70,7 @@ function handleClick() {
     
     if (isOrderIsInvalid(color, quantity)) return
     saveOrder(color, quantity) 
-    //redirectToCart()
+    redirectToCart()
 }
 
 
@@ -78,6 +78,7 @@ function saveOrder(color, quantity) {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     
     const existingIndex = cart.findIndex(element => element.id === id && element.color === color);
+
     if(existingIndex === -1) {
         //nouveau produit
         const item = {
@@ -103,29 +104,3 @@ function isOrderIsInvalid(color, quantity) {
 function redirectToCart(){
     window.location.href = "cart.html" 
 }
-cart.forEach(item => displayItem(item))
-
-fonction fetchItem(item)
-    fetch(`http://localhost:3000/api/products/${item.id}`)
-   .then((response) => response.json())
-   .then((res) => handleData(res))
-
-
- function displayItem(item){
-    const article = makeArticle(item)
-    const imageDiv = makeImageDiv(item)
-    article.appendChild(cardItemContent)
-
-    displayArticle(article)
-    displayTotalPrice(item)
- }
-
- function displayTotalPrice(item) {
-    let total = 0
-    const totalPrice = document.querySelector("#totalPrice")
-    cart.forEach((item) => {
-        const totalUnitPrice = item.Price * item.quantity
-        total += totalUnitPrice
- })
- totalPrice.textContent = total
- 
