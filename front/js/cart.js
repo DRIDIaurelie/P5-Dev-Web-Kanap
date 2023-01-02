@@ -1,22 +1,18 @@
-const cart = []
+const cart = JSON.parse(localStorage.getItem('cart')) || [];
+cart.forEach(item => displayItem(item))
 
-retrieveItemsFromCache()
-cart.forEach((item) => displayItem(item))
-
-function retrieveItemsFromCache() {
-    const numberOfItems = localStorage.length
-    for (let i = 0; i < numberOfItems; i++) {
-        const item = localStorage.getItem(localStorage.key(i)) || ""
-        const itemObject = JSON.parse(item)
-        cart.push(itemObject)
-    }
+function fetchItem(item) {
+    fetch(`http://localhost:3000/api/products/${item.id}`)
+   .then((response) => response.json())
+   .then((res) => displayItem(item, res))
 }
 
-function displayItem(item) {
-    const article = makeArticle(item)
-    const imageDiv = makeImageDiv(item)
-    article.appendChild(imageDiv)    
-    const cardItemContent = makeCartContent(item)
+function displayItem(cartItem, product) {
+    const article = makeArticle(cartItem)
+    const imageDiv = makeImageDiv(product)
+    article.appendChild(imageDiv)
+
+    const cardItemContent = makeCartContent(cartItem, product)
     article.appendChild(cardItemContent)
     displayArticle(article)
     displayTotalPrice(item)
@@ -34,11 +30,11 @@ function displayTotalPrice(item) {
    
 
 
-function makeCartContent(item) {
+function makeCartContent(cartItem, product) {
     const cardItemContent = document.createElement("div")
     cardItemContent.classList.add("cart__item__content")
 
-    const description = makeDescription(item)
+    const description = makeDescription(cartItem, product)
     const settings = makeSettings(item)
 
     cardItemContent.appendChild(description)
@@ -84,16 +80,16 @@ function addQuantityToSettings(settings, item){
 
 }
 
-function makeDescription(item){
+function makeDescription(cartItem, product){
     const description = document.createElement("div")
     description.classList.add("cart__item__content__description")
     
     const h2 = document.createElement("h2")
-    h2.textContent = item.name
+    h2.textContent = product.name
     const p = document.createElement("p")
-    p.textContent = item.color
+    p.textContent = cartItem.color
     const p2 = document.createElement("p")
-    p2.textContent = item.price = " €"
+    p2.textContent = product.price = " €"
     
     description.appendChild(h2)
     description.appendChild(p)
@@ -107,7 +103,7 @@ function displayArticle(article) {
 
 function makeArticle(item) {
     const article = document.createElement("article")
-    article.classList.add("card__item")
+    article.classList.add("cart__item")
     article.dataset.id = item.id
     article.dataset.color = item.color
     return article

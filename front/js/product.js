@@ -70,24 +70,32 @@ function handleClick() {
     
     if (isOrderIsInvalid(color, quantity)) return
     saveOrder(color, quantity) 
-    redirectToCart()
+    //redirectToCart()
 }
 
+
 function saveOrder(color, quantity) {
-    const data = {
-        id: id,
-        color: color,
-        quantity: Number(quantity),
-        price: itemPrice,
-        imageUrl: imgUrl,
-        altTxt: altText,
-        name: articleName,
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    const existingIndex = cart.findIndex(element => element.id === id && element.color === color);
+    if(existingIndex === -1) {
+        //nouveau produit
+        const item = {
+            id,
+            color,
+            quantity
+        };
+        cart.push(item);
+    } else {
+        //produit existant
+        cart[existingIndex].quantity += quantity
     }
-    localStorage.setItem(id, JSON.stringify(data))   
+
+    localStorage.setItem('cart', JSON.stringify(cart))   
 }
 
 function isOrderIsInvalid(color, quantity) {
-    if (color == null || color === "" || quantity == null || quantity == 0) {
+    if (color == null || color === "" || quantity == null || quantity <= 0 || quantity > 100) {
         alert("Please select a color and quantity")
         return true
     }
@@ -95,3 +103,29 @@ function isOrderIsInvalid(color, quantity) {
 function redirectToCart(){
     window.location.href = "cart.html" 
 }
+cart.forEach(item => displayItem(item))
+
+fonction fetchItem(item)
+    fetch(`http://localhost:3000/api/products/${item.id}`)
+   .then((response) => response.json())
+   .then((res) => handleData(res))
+
+
+ function displayItem(item){
+    const article = makeArticle(item)
+    const imageDiv = makeImageDiv(item)
+    article.appendChild(cardItemContent)
+
+    displayArticle(article)
+    displayTotalPrice(item)
+ }
+
+ function displayTotalPrice(item) {
+    let total = 0
+    const totalPrice = document.querySelector("#totalPrice")
+    cart.forEach((item) => {
+        const totalUnitPrice = item.Price * item.quantity
+        total += totalUnitPrice
+ })
+ totalPrice.textContent = total
+ 
