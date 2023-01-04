@@ -1,5 +1,5 @@
 const cart = JSON.parse(localStorage.getItem('cart')) || [];
-cart.forEach(item => displayItem(item))
+cart.forEach(item => fetchItem(item))
 
 function fetchItem(item) {
     fetch(`http://localhost:3000/api/products/${item.id}`)
@@ -14,6 +14,7 @@ function displayItem(cartItem, product) {
 
     const cardItemContent = makeCartContent(cartItem, product)
     article.appendChild(cardItemContent)
+
     displayArticle(article)
     displayTotalPrice()
 }
@@ -24,11 +25,9 @@ function displayTotalPrice() {
         const totalUnitPrice = item.Price * item.quantity
         total += totalUnitPrice
     })
-    console.log(total)
     totalPrice.textContent = total
+    
 }
-   
-
 
 function makeCartContent(cartItem, product) {
     const cardItemContent = document.createElement("div")
